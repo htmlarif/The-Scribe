@@ -1,0 +1,6 @@
+{
+  "name": "The Scribe",
+  "description": "A modern, premium online news portal website.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
