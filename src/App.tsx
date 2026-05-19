@@ -5,6 +5,7 @@
 
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
+import CategorySection from './components/CategorySection';
 import Footer from './components/Footer';
 
 export default function App() {
@@ -12,6 +13,7 @@ export default function App() {
     <div className="min-h-screen bg-zinc-950 text-zinc-100">
       <Navbar />
       <Hero />
+      <CategorySection />
       <main className="container mx-auto px-4 py-8">
         {/* Placeholder for future sections */}
       </main>
