@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
+import { Link } from 'react-router-dom';
 import { NEWS_DATA } from '../data';
 
 export default function FeaturedBanner() {
@@ -39,15 +40,17 @@ export default function FeaturedBanner() {
           transition={{ duration: 0.5 }}
           className="absolute inset-0"
         >
-          <img 
-            src={NEWS_DATA[currentIndex].image}
-            alt={NEWS_DATA[currentIndex].title}
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/40 to-transparent p-6 flex flex-col justify-end">
-            <span className="text-xs font-bold text-amber-500 uppercase tracking-widest mb-2">{NEWS_DATA[currentIndex].category}</span>
-            <h1 className="text-3xl font-serif font-bold leading-tight">{NEWS_DATA[currentIndex].title}</h1>
-          </div>
+          <Link to={`/news/${NEWS_DATA[currentIndex].id}`}>
+            <img 
+              src={NEWS_DATA[currentIndex].image}
+              alt={NEWS_DATA[currentIndex].title}
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/40 to-transparent p-6 flex flex-col justify-end">
+              <span className="text-xs font-bold text-amber-500 uppercase tracking-widest mb-2">{NEWS_DATA[currentIndex].category}</span>
+              <h1 className="text-3xl font-serif font-bold leading-tight">{NEWS_DATA[currentIndex].title}</h1>
+            </div>
+          </Link>
         </motion.div>
       </AnimatePresence>
       
