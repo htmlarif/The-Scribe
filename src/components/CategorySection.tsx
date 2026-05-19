@@ -3,29 +3,37 @@ import { NEWS_CATEGORIES } from '../constants';
 
 export default function CategorySection() {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const isPaused = useRef(false);
 
   useEffect(() => {
     const container = scrollRef.current;
     if (!container) return;
 
-    let scrollInterval: NodeJS.Timeout;
+    let animationId: number;
 
-    const startScrolling = () => {
-      scrollInterval = setInterval(() => {
-        if (container.scrollLeft + container.clientWidth >= container.scrollWidth) {
+    const animate = () => {
+      if (!isPaused.current) {
+        if (container.scrollLeft + container.clientWidth >= container.scrollWidth - 1) {
           container.scrollLeft = 0;
         } else {
-          container.scrollLeft += 1;
+          container.scrollLeft += 0.5;
         }
-      }, 30);
+      }
+      animationId = requestAnimationFrame(animate);
     };
 
-    startScrolling();
-    return () => clearInterval(scrollInterval);
+    animationId = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(animationId);
   }, []);
 
   return (
-    <section className="container mx-auto px-4 py-12">
+    <section 
+      className="container mx-auto px-4 py-12"
+      onMouseEnter={() => isPaused.current = true}
+      onMouseLeave={() => isPaused.current = false}
+      onTouchStart={() => isPaused.current = true}
+      onTouchEnd={() => isPaused.current = false}
+    >
       <h2 className="text-2xl font-serif font-bold mb-8">Browse Categories</h2>
       <div 
         ref={scrollRef}
