@@ -30,13 +30,13 @@ export default function ArticlePage() {
         </div>
         <h1 className="text-4xl md:text-5xl font-serif font-bold leading-tight mb-6">{article.title}</h1>
         <div className="flex flex-wrap items-center gap-6 text-zinc-400 text-sm">
-          <div className="flex items-center gap-2"><User size={18} /> Reporter Name</div>
-          <div className="flex items-center gap-2"><Calendar size={18} /> {article.date}</div>
+          <div className="flex items-center gap-2"><User size={18} /> {article.published_by}</div>
+          <div className="flex items-center gap-2"><Calendar size={18} /> {new Date(article.created_att).toLocaleDateString()}</div>
         </div>
       </header>
 
       <div className="rounded-2xl overflow-hidden mb-8 shadow-2xl">
-        <img src={article.image} alt={article.title} className="w-full aspect-video object-cover" />
+        <img src={article.image_url} alt={article.title} className="w-full aspect-video object-cover" />
       </div>
 
       <div className="prose prose-invert prose-lg max-w-none font-serif text-zinc-300 leading-relaxed mb-12" dangerouslySetInnerHTML={{ __html: article.content }}>

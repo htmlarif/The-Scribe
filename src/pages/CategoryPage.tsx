@@ -19,7 +19,7 @@ export default function CategoryPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {filteredNews.map((item) => (
           <Link key={item.id} to={`/news/${item.id}`} className="group bg-zinc-900 rounded-xl overflow-hidden hover:bg-zinc-800 transition-colors">
-            <img src={item.image} className="w-full h-40 object-cover" alt={item.title} />
+            <img src={item.image_url} className="w-full h-40 object-cover" alt={item.title} />
             <div className="p-4">
               <span className="text-xs text-amber-500 font-bold uppercase tracking-wider mb-2 block">{item.category}</span>
               <h3 className="font-serif leading-snug">{item.title}</h3>
