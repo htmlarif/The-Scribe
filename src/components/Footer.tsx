@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 export default function Footer() {
   return (
     <footer className="border-t border-zinc-900 bg-zinc-950 pt-16 pb-8">
@@ -33,7 +35,7 @@ export default function Footer() {
         </div>
       </div>
       <div className="container mx-auto px-4 mt-16 pt-8 border-t border-zinc-900 text-center text-zinc-600 text-xs">
-        &copy; 2026 The Scribe. All rights reserved.
+        &copy; 2026 The Scribe. All rights reserved. <Link to="/admin" className="hover:text-white ml-2">Admin</Link>
       </div>
     </footer>
   );
