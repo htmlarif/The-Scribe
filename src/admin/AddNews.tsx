@@ -20,11 +20,30 @@ export default function AddNews() {
       const supabase = getSupabase();
       
       if (file) {
+        // Debug: listBuckets
+        const { data: buckets, error: listError } = await supabase.storage.listBuckets();
+        if (listError) {
+          console.error('List buckets error:', listError);
+          throw listError;
+        }
+        console.log('Available buckets:', buckets);
+
+        const bucketExists = buckets?.some(b => b.name === 'news-images');
+        if (!bucketExists) {
+           console.error('Bucket "news-images" not found');
+           throw new Error('Storage bucket "news-images" not found. Please check Supabase dashboard.');
+        }
+
         const filePath = `${Date.now()}_${file.name}`;
-        const { data: uploadData, error: uploadError } = await supabase.storage.from('news').upload(filePath, file);
-        if (uploadError) throw uploadError;
+        console.log('Uploading to news-images, path:', filePath);
+        const { data: uploadData, error: uploadError } = await supabase.storage.from('news-images').upload(filePath, file);
+        if (uploadError) {
+            console.error('Upload error details:', uploadError);
+            throw uploadError;
+        }
         
-        const { data: publicUrlData } = supabase.storage.from('news').getPublicUrl(filePath);
+        console.log('Upload success:', uploadData);
+        const { data: publicUrlData } = supabase.storage.from('news-images').getPublicUrl(filePath);
         imageUrl = publicUrlData.publicUrl;
       }
 
