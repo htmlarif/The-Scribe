@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { NEWS_CATEGORIES } from '../constants';
 
 export default function CategorySection() {
@@ -40,16 +41,16 @@ export default function CategorySection() {
         className="flex overflow-x-auto scrollbar-hide gap-4 pb-4 md:grid md:grid-cols-4 lg:grid-cols-7 md:pb-0"
       >
         {NEWS_CATEGORIES.map((cat, i) => (
-          <a
+          <Link
             key={cat}
-            href={`#${cat.toLowerCase()}`}
+            to={`/category/${cat.toLowerCase()}`}
             className="group flex-shrink-0 w-32 md:w-auto p-4 bg-zinc-900 rounded-xl border border-zinc-800 hover:border-amber-500/50 transition-all text-center"
           >
             <span className="text-3xl mb-2 block group-hover:scale-110 transition-transform">
               {['📰', '🏥', '🏛️', '🌍', '⚖️', '💻', '💼', '📊', '⚽', '🎭', '🧘', '🔬', '🌿', '🌾', '💼', '🎓', '🚓', '🙏', '✈️', '🍲', '👗', '🎨', '💡', '✍️', '✅', '🎬', '📺', '🚨'][i % 28]}
             </span>
             <span className="text-sm font-medium text-zinc-300 group-hover:text-white">{cat}</span>
-          </a>
+          </Link>
         ))}
       </div>
     </section>

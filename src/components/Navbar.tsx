@@ -1,10 +1,20 @@
-import { useState } from 'react';
+import { useState, KeyboardEvent } from 'react';
 import { Menu, Search, User, Moon, Sun, Bell, ChevronDown } from 'lucide-react';
 import { NEWS_CATEGORIES } from '../constants';
+import { useNavigate } from 'react-router-dom';
 
 export default function Navbar() {
   const [isDark, setIsDark] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const navigate = useNavigate();
+
+  const handleSearch = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter' && searchQuery.trim()) {
+      navigate(`/search?q=${encodeURIComponent(searchQuery)}`);
+      setSearchQuery('');
+    }
+  };
 
   return (
     <nav className="sticky top-0 z-50 border-b border-zinc-800 bg-zinc-950/80 backdrop-blur-md">
@@ -31,7 +41,17 @@ export default function Navbar() {
         </div>
 
         <div className="flex items-center gap-4 text-zinc-400">
-          <Search className="w-5 h-5 hover:text-white cursor-pointer" />
+          <div className="relative flex items-center">
+            <Search className="w-5 h-5 absolute left-2" />
+            <input 
+              type="text"
+              placeholder="Search..."
+              className="bg-zinc-900 border border-zinc-800 rounded-full py-1 pl-8 pr-4 text-xs w-40 focus:outline-none focus:border-amber-500"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              onKeyDown={handleSearch}
+            />
+          </div>
           <Bell className="w-5 h-5 hover:text-white cursor-pointer" />
           <button onClick={() => setIsDark(!isDark)}>
             {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
